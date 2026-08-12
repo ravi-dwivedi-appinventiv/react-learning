@@ -1,43 +1,56 @@
-import { useState, type ChangeEvent } from "react";
+import { useState } from "react";
 
 const ManageUser = () => {
   const [user, setUser] = useState("");
-  const [userList, setUserList] = useState<string[]>([]);
+  const [userList, setUserList] = useState([]);
 
-  const updateUsers = (event: ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setUser(value);
+  const updateUsers = (event) => {
+    setUser(event.target.value);
   };
 
   const addUser = () => {
-    setUserList((prev) => [...prev, user]);
-    setUser('');
+    const trimmedUser = user.trim();
+
+    if (!trimmedUser) {
+      return;
+    }
+
+    setUserList((prev) => [...prev, trimmedUser]);
+    setUser("");
   };
 
-  const removeUser = (removeIndex: number) => {
-    setUserList((pre) => pre.filter((_, index) => index != removeIndex));
+  const removeUser = (removeIndex) => {
+    setUserList((prev) =>
+      prev.filter((_, index) => index !== removeIndex)
+    );
   };
 
   return (
     <>
       <div>
         <h3>User Form</h3>
-        <input type="text" onChange={updateUsers} value={user} />
-        <button onClick={addUser}>Add User</button>
+
+        <input
+          type="text"
+          value={user}
+          onChange={updateUsers}
+        />
+
+        <button onClick={addUser}>
+          Add User
+        </button>
       </div>
+
       <div>
-        {userList?.length > 0 &&
-          userList.map((usr, i) => (
-            <div key={i}>
-              <div>
-                <span>
-                  {" "}
-                  {usr}{" "}
-                  <button onClick={() => removeUser(i)}>Delete</button>{" "}
-                </span>
-              </div>
-            </div>
-          ))}
+        {userList.map((usr, index) => (
+          <div key={index}>
+            <span>{usr}</span>
+
+            <button onClick={() => removeUser(index)}>
+              Delete
+            </button>
+          </div>
+        ))}
       </div>
     </>
   );
