@@ -1,16 +1,16 @@
-import { useState } from "react";
+import { useState, type ChangeEvent } from "react";
 
 const ManageUser = () => {
   const [user, setUser] = useState("");
-  const [userList, setUserList] = useState([]);
+  const [userList, setUserList] = useState<string[]>([]);
 
-  const updateUsers = (event: any) => {
+  const updateUsers = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setUser(value);
   };
 
   const addUser = () => {
-    setUserList((prev: any) => [...prev, user]);
+    setUserList((prev) => [...prev, user]);
     setUser('');
   };
 
