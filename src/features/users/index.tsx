@@ -4,17 +4,17 @@ const ManageUser = () => {
   const [user, setUser] = useState("");
   const [userList, setUserList] = useState([]);
 
-  const updateUsers = (event) => {
+  const updateUsers = (event: any) => {
     const value = event.target.value;
     setUser(value);
   };
 
   const addUser = () => {
-    setUserList((prev) => [...prev, user]);
+    setUserList((prev: any) => [...prev, user]);
     setUser('');
   };
 
-  const removeUser = (removeIndex) => {
+  const removeUser = (removeIndex: number) => {
     setUserList((pre) => pre.filter((_, index) => index != removeIndex));
   };
 
